@@ -3,452 +3,481 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RimPro – Felgen & Räder</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      color: #1a1a1a;
-      background: #fff;
-    }
-
-    /* NAVIGATION */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      background: rgba(10, 10, 10, 0.95);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 18px 60px;
-      z-index: 100;
-    }
-    .logo {
-      color: #e63c2f;
-      font-size: 1.6rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-    }
-    .logo span { color: #fff; }
-    nav ul {
-      list-style: none;
-      display: flex;
-      gap: 32px;
-    }
-    nav ul a {
-      color: #ccc;
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: color 0.2s;
-    }
-    nav ul a:hover { color: #e63c2f; }
-    .nav-cta {
-      background: #e63c2f;
-      color: #fff !important;
-      padding: 10px 22px;
-      border-radius: 6px;
-      font-weight: 600;
-    }
-
-    /* HERO */
-    .hero {
-      min-height: 100vh;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1c1c1c 50%, #2a0a07 100%);
-      display: flex;
-      align-items: center;
-      padding: 0 60px;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      right: -100px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 700px;
-      height: 700px;
-      background: radial-gradient(circle, rgba(230,60,47,0.15) 0%, transparent 70%);
-      border-radius: 50%;
-    }
-    .hero-content { max-width: 620px; z-index: 1; }
-    .hero-badge {
-      display: inline-block;
-      background: rgba(230,60,47,0.2);
-      color: #e63c2f;
-      border: 1px solid #e63c2f;
-      padding: 6px 16px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 600;
-      margin-bottom: 24px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-    .hero h1 {
-      font-size: 3.8rem;
-      font-weight: 900;
-      color: #fff;
-      line-height: 1.1;
-      margin-bottom: 24px;
-    }
-    .hero h1 span { color: #e63c2f; }
-    .hero p {
-      color: #aaa;
-      font-size: 1.15rem;
-      line-height: 1.7;
-      margin-bottom: 40px;
-    }
-    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
-    .btn-primary {
-      background: #e63c2f;
-      color: #fff;
-      padding: 16px 36px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1rem;
-      transition: background 0.2s, transform 0.1s;
-    }
-    .btn-primary:hover { background: #c0392b; transform: translateY(-1px); }
-    .btn-secondary {
-      border: 2px solid #444;
-      color: #ccc;
-      padding: 16px 36px;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1rem;
-      transition: border-color 0.2s, color 0.2s;
-    }
-    .btn-secondary:hover { border-color: #e63c2f; color: #fff; }
-
-    /* STATS */
-    .stats {
-      background: #f7f7f7;
-      display: flex;
-      justify-content: center;
-      gap: 0;
-    }
-    .stat {
-      flex: 1;
-      text-align: center;
-      padding: 48px 20px;
-      border-right: 1px solid #e0e0e0;
-    }
-    .stat:last-child { border-right: none; }
-    .stat-number {
-      font-size: 2.8rem;
-      font-weight: 900;
-      color: #e63c2f;
-    }
-    .stat-label {
-      color: #666;
-      font-size: 0.95rem;
-      margin-top: 6px;
-    }
-
-    /* PRODUKTE */
-    .section { padding: 90px 60px; }
-    .section-header { text-align: center; margin-bottom: 60px; }
-    .section-header h2 {
-      font-size: 2.4rem;
-      font-weight: 800;
-      margin-bottom: 14px;
-    }
-    .section-header p { color: #666; font-size: 1.05rem; }
-
-    .products-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 28px;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    .product-card {
-      background: #fff;
-      border: 1px solid #eee;
-      border-radius: 14px;
-      overflow: hidden;
-      transition: box-shadow 0.2s, transform 0.2s;
-    }
-    .product-card:hover {
-      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
-      transform: translateY(-4px);
-    }
-    .product-img {
-      height: 180px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 5rem;
-      background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
-    }
-    .product-info { padding: 24px; }
-    .product-info h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
-    .product-info p { color: #666; font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px; }
-    .product-price {
-      font-size: 1.4rem;
-      font-weight: 800;
-      color: #e63c2f;
-    }
-    .product-price span { font-size: 0.85rem; color: #999; font-weight: 400; }
-
-    /* MARKEN */
-    .brands { background: #0a0a0a; padding: 60px; text-align: center; }
-    .brands h2 { color: #fff; font-size: 1.3rem; margin-bottom: 40px; letter-spacing: 2px; text-transform: uppercase; }
-    .brands-list {
-      display: flex;
-      justify-content: center;
-      gap: 50px;
-      flex-wrap: wrap;
-    }
-    .brand {
-      color: #555;
-      font-size: 1.5rem;
-      font-weight: 800;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      transition: color 0.2s;
-    }
-    .brand:hover { color: #e63c2f; }
-
-    /* WARUM WIR */
-    .why { background: #f7f7f7; }
-    .why-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-      gap: 32px;
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-    .why-card {
-      background: #fff;
-      border-radius: 14px;
-      padding: 36px 28px;
-      text-align: center;
-      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
-    }
-    .why-icon { font-size: 2.8rem; margin-bottom: 18px; }
-    .why-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; }
-    .why-card p { color: #666; font-size: 0.95rem; line-height: 1.6; }
-
-    /* KONTAKT */
-    .contact { max-width: 600px; margin: 0 auto; }
-    .contact form { display: flex; flex-direction: column; gap: 16px; }
-    .contact input,
-    .contact textarea,
-    .contact select {
-      width: 100%;
-      padding: 14px 18px;
-      border: 2px solid #e0e0e0;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-family: inherit;
-      transition: border-color 0.2s;
-      outline: none;
-    }
-    .contact input:focus,
-    .contact textarea:focus,
-    .contact select:focus { border-color: #e63c2f; }
-    .contact textarea { min-height: 140px; resize: vertical; }
-    .contact button {
-      background: #e63c2f;
-      color: #fff;
-      border: none;
-      padding: 16px;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-    .contact button:hover { background: #c0392b; }
-
-    /* FOOTER */
-    footer {
-      background: #0a0a0a;
-      color: #666;
-      text-align: center;
-      padding: 40px 60px;
-      font-size: 0.9rem;
-    }
-    footer strong { color: #e63c2f; }
-
-    @media (max-width: 768px) {
-      nav { padding: 16px 20px; }
-      nav ul { display: none; }
-      .hero { padding: 120px 24px 60px; }
-      .hero h1 { font-size: 2.4rem; }
-      .section { padding: 60px 24px; }
-      .stats { flex-direction: column; }
-      .stat { border-right: none; border-bottom: 1px solid #e0e0e0; }
-      .brands { padding: 60px 24px; }
-      .brands-list { gap: 28px; }
-    }
-  </style>
+  <title>RimPro Würzburg – Premium Felgen & Kompletträder</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-  <!-- Navigation -->
-  <nav>
-    <div class="logo">Rim<span>Pro</span></div>
-    <ul>
-      <li><a href="#produkte">Felgen</a></li>
-      <li><a href="#marken">Marken</a></li>
-      <li><a href="#warum">Über uns</a></li>
-      <li><a href="#kontakt" class="nav-cta">Anfrage stellen</a></li>
+  <!-- NAVIGATION -->
+  <nav id="navbar">
+    <a href="#" class="logo">Rim<span>Pro</span></a>
+    <ul class="nav-links">
+      <li><a href="#konfigurator">Konfigurator</a></li>
+      <li><a href="#preisrechner">Preise</a></li>
+      <li><a href="#galerie">Felgen</a></li>
+      <li><a href="#bewertungen">Bewertungen</a></li>
+      <li><a href="#termin" class="nav-cta">Termin buchen</a></li>
     </ul>
+    <button class="hamburger" id="hamburger" aria-label="Menü">&#9776;</button>
   </nav>
 
-  <!-- Hero -->
-  <section class="hero">
+  <!-- HERO -->
+  <section id="hero">
     <div class="hero-content">
-      <div class="hero-badge">Felgen & Kompletträder</div>
-      <h1>Dein Auto.<br>Deine <span>Felgen.</span><br>Dein Style.</h1>
-      <p>Über 5.000 Felgen auf Lager — von sportlich bis elegant. Wir finden die perfekte Felge für dein Fahrzeug. Montage, Einlagerung und Lieferung inklusive.</p>
+      <div class="hero-badge">Würzburgs #1 Felgenhändler</div>
+      <h1>Dein Auto.<br>Eine andere<br><span class="gold">Dimension.</span></h1>
+      <p>Neue Felgen sind kein Zubehör — sie sind die schnellste Transformation die dein Auto erleben kann. Mit relativ wenig Aufwand sieht es doppelt so stark aus wie vorher.</p>
       <div class="hero-buttons">
-        <a href="#produkte" class="btn-primary">Felgen entdecken</a>
-        <a href="#kontakt" class="btn-secondary">Beratung anfragen</a>
+        <a href="#konfigurator" class="btn-primary">Felgen ausprobieren</a>
+        <a href="#termin" class="btn-outline">Termin buchen</a>
       </div>
+    </div>
+    <div class="hero-visual">
+      <canvas id="hero-rim" width="320" height="320"></canvas>
     </div>
   </section>
 
-  <!-- Stats -->
-  <div class="stats">
-    <div class="stat">
-      <div class="stat-number">5.000+</div>
-      <div class="stat-label">Felgen auf Lager</div>
-    </div>
-    <div class="stat">
-      <div class="stat-number">12</div>
-      <div class="stat-label">Jahre Erfahrung</div>
-    </div>
-    <div class="stat">
-      <div class="stat-number">98%</div>
-      <div class="stat-label">Zufriedene Kunden</div>
-    </div>
-    <div class="stat">
-      <div class="stat-number">24h</div>
-      <div class="stat-label">Lieferzeit</div>
-    </div>
+  <!-- STATS -->
+  <div class="stats-bar">
+    <div class="stat"><span class="stat-num">5.000+</span><span class="stat-label">Felgen auf Lager</span></div>
+    <div class="stat"><span class="stat-num">12</span><span class="stat-label">Jahre Erfahrung</span></div>
+    <div class="stat"><span class="stat-num">98%</span><span class="stat-label">Weiterempfehlungen</span></div>
+    <div class="stat"><span class="stat-num">24h</span><span class="stat-label">Lieferzeit</span></div>
   </div>
 
-  <!-- Produkte -->
-  <section class="section" id="produkte">
+  <!-- FELGEN KONFIGURATOR -->
+  <section id="konfigurator" class="section">
     <div class="section-header">
-      <h2>Unsere Felgen-Kategorien</h2>
-      <p>Für jeden Geschmack und jedes Fahrzeug das Richtige</p>
+      <div class="section-badge">Exklusiv</div>
+      <h2>Sieh deine Traumfelgen <em>an deinem Auto</em></h2>
+      <p>Lade ein Foto deines Autos hoch, platziere die Felgen per Klick und entscheide mit eigenen Augen.</p>
     </div>
-    <div class="products-grid">
-      <div class="product-card">
-        <div class="product-img">⚙️</div>
-        <div class="product-info">
-          <h3>Sportfelgen</h3>
-          <p>Leichte Alufelgen für maximale Performance und sportliches Aussehen.</p>
-          <div class="product-price">ab 189 € <span>/ Stück</span></div>
+
+    <div class="konfigurator-layout">
+      <div class="konfigurator-canvas-wrap">
+        <canvas id="konfigurator-canvas" width="780" height="420"></canvas>
+        <div class="canvas-hint" id="canvas-hint">
+          <span>👆 Klicke auf die Räder deines Autos um Felgen zu platzieren</span>
+        </div>
+        <div class="canvas-controls">
+          <label class="upload-btn">
+            📷 Eigenes Auto hochladen
+            <input type="file" id="car-upload" accept="image/*" hidden>
+          </label>
+          <button class="btn-sm" id="reset-wheels">Räder zurücksetzen</button>
+          <button class="btn-sm btn-gold" id="download-config">⬇ Bild speichern</button>
         </div>
       </div>
-      <div class="product-card">
-        <div class="product-img">✨</div>
-        <div class="product-info">
-          <h3>Design-Felgen</h3>
-          <p>Elegante Felgen für Limousinen und SUVs — hochglanz oder matt.</p>
-          <div class="product-price">ab 249 € <span>/ Stück</span></div>
+
+      <div class="konfigurator-panel">
+        <h3>Felgenstil wählen</h3>
+        <div class="rim-styles">
+          <button class="rim-style-btn active" data-style="sport">
+            <canvas class="rim-preview" width="70" height="70" data-style="sport"></canvas>
+            <span>Sport 5-Speiche</span>
+          </button>
+          <button class="rim-style-btn" data-style="elegance">
+            <canvas class="rim-preview" width="70" height="70" data-style="elegance"></canvas>
+            <span>Elegance 10-Speiche</span>
+          </button>
+          <button class="rim-style-btn" data-style="multi">
+            <canvas class="rim-preview" width="70" height="70" data-style="multi"></canvas>
+            <span>Multi-Spoke</span>
+          </button>
+          <button class="rim-style-btn" data-style="offroad">
+            <canvas class="rim-preview" width="70" height="70" data-style="offroad"></canvas>
+            <span>Offroad 6-Arm</span>
+          </button>
         </div>
-      </div>
-      <div class="product-card">
-        <div class="product-img">🚙</div>
-        <div class="product-info">
-          <h3>SUV & Offroad</h3>
-          <p>Robuste Felgen für Geländefahrzeuge — stabil und stylisch.</p>
-          <div class="product-price">ab 219 € <span>/ Stück</span></div>
+
+        <h3>Farbe</h3>
+        <div class="color-picker">
+          <button class="color-btn active" data-color="gold" style="background:#C4922A" title="Gold"></button>
+          <button class="color-btn" data-color="silber" style="background:#C0C0C0" title="Silber"></button>
+          <button class="color-btn" data-color="schwarz" style="background:#2C2C2C" title="Schwarz"></button>
+          <button class="color-btn" data-color="weiss" style="background:#F0EDE8;border:2px solid #C4922A" title="Weiß"></button>
         </div>
-      </div>
-      <div class="product-card">
-        <div class="product-img">❄️</div>
-        <div class="product-info">
-          <h3>Winterkompletträder</h3>
-          <p>Fertig montierte Winterräder — direkt aufziehen und losfahren.</p>
-          <div class="product-price">ab 599 € <span>/ Satz</span></div>
+
+        <div class="konfigurator-info">
+          <p>💡 <strong>So funktioniert's:</strong><br>
+          Klicke direkt auf die Räder im Bild — die Felge erscheint sofort. Du kannst bis zu 4 Räder platzieren. Danach das Bild speichern und uns schicken!</p>
+          <a href="#termin" class="btn-primary" style="display:block;text-align:center;margin-top:16px;">Diese Felgen anfragen</a>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Marken -->
-  <section class="brands" id="marken">
-    <h2>Unsere Marken</h2>
-    <div class="brands-list">
-      <div class="brand">BBS</div>
-      <div class="brand">OZ Racing</div>
-      <div class="brand">Borbet</div>
-      <div class="brand">AEZ</div>
-      <div class="brand">Brock</div>
-      <div class="brand">Alutec</div>
-    </div>
-  </section>
-
-  <!-- Warum wir -->
-  <section class="section why" id="warum">
+  <!-- PREISRECHNER -->
+  <section id="preisrechner" class="section section-dark">
     <div class="section-header">
-      <h2>Warum RimPro?</h2>
-      <p>Wir sind mehr als nur ein Felgenhändler</p>
+      <div class="section-badge">Transparent</div>
+      <h2>Was kostet mein Reifenwechsel?</h2>
+      <p>Wähle deine gewünschten Services — der Preis wird sofort berechnet.</p>
     </div>
-    <div class="why-grid">
-      <div class="why-card">
-        <div class="why-icon">🚚</div>
-        <h3>Kostenlose Lieferung</h3>
-        <p>Ab einem Bestellwert von 300 € liefern wir versandkostenfrei direkt zu dir nach Hause.</p>
+
+    <div class="rechner-layout">
+      <div class="rechner-services">
+        <div class="service-item">
+          <label class="service-label">
+            <input type="checkbox" class="service-check" data-price="18" data-per-rad="true" id="s-montage">
+            <div class="service-info">
+              <strong>Felgen montieren (Aufziehen)</strong>
+              <span>Reifen auf Felge aufziehen</span>
+            </div>
+            <span class="service-price">18 € / Rad</span>
+          </label>
+        </div>
+        <div class="service-item">
+          <label class="service-label">
+            <input type="checkbox" class="service-check" data-price="14" data-per-rad="true" id="s-wuchten">
+            <div class="service-info">
+              <strong>Auswuchten</strong>
+              <span>Unwucht beseitigen für ruhige Fahrt</span>
+            </div>
+            <span class="service-price">14 € / Rad</span>
+          </label>
+        </div>
+        <div class="service-item">
+          <label class="service-label">
+            <input type="checkbox" class="service-check" data-price="22" data-per-rad="true" id="s-rdks">
+            <div class="service-info">
+              <strong>RDKS-Sensor Service</strong>
+              <span>Reifendruckkontrolle anlernen/prüfen</span>
+            </div>
+            <span class="service-price">22 € / Rad</span>
+          </label>
+        </div>
+        <div class="service-item">
+          <label class="service-label">
+            <input type="checkbox" class="service-check" data-price="15" data-per-rad="true" id="s-wechsel">
+            <div class="service-info">
+              <strong>Reifenwechsel (auf eigene Felgen)</strong>
+              <span>Sommerreifen gegen Winterreifen tauschen</span>
+            </div>
+            <span class="service-price">15 € / Rad</span>
+          </label>
+        </div>
+        <div class="service-item">
+          <label class="service-label">
+            <input type="checkbox" class="service-check" data-price="89" data-per-rad="false" id="s-spur">
+            <div class="service-info">
+              <strong>Spureinstellung (Achsvermessung)</strong>
+              <span>Für gleichmäßigen Reifenverschleiß</span>
+            </div>
+            <span class="service-price">89 € pausch.</span>
+          </label>
+        </div>
+        <div class="service-item">
+          <label class="service-label">
+            <input type="checkbox" class="service-check" data-price="59" data-per-rad="false" id="s-einlagerung">
+            <div class="service-info">
+              <strong>Saisoneinlagerung (4 Räder)</strong>
+              <span>Trocken & sicher bei uns einlagern</span>
+            </div>
+            <span class="service-price">59 € / Saison</span>
+          </label>
+        </div>
       </div>
-      <div class="why-card">
-        <div class="why-icon">🔧</div>
-        <h3>Montage vor Ort</h3>
-        <p>Wir montieren deine neuen Felgen direkt in unserem Betrieb — schnell und professionell.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">📦</div>
-        <h3>Einlagerung</h3>
-        <p>Deine Saisonräder lagern wir sicher und trocken ein — kein Keller voll Reifen mehr.</p>
-      </div>
-      <div class="why-card">
-        <div class="why-icon">💬</div>
-        <h3>Persönliche Beratung</h3>
-        <p>Unsere Experten helfen dir, die richtige Felge für dein Fahrzeug und deinen Stil zu finden.</p>
+
+      <div class="rechner-result">
+        <div class="rechner-card">
+          <h3>Dein Angebot</h3>
+
+          <div class="rad-auswahl">
+            <label>Anzahl Räder</label>
+            <div class="rad-buttons">
+              <button class="rad-btn active" data-rads="4">4 Räder</button>
+              <button class="rad-btn" data-rads="2">2 Räder</button>
+            </div>
+          </div>
+
+          <div class="rechner-breakdown" id="rechner-breakdown">
+            <p class="rechner-empty">Wähle einen oder mehrere Services links aus.</p>
+          </div>
+
+          <div class="rechner-total">
+            <span>Gesamtpreis</span>
+            <span id="total-price">0,00 €</span>
+          </div>
+          <p class="rechner-hinweis">* Preise inkl. MwSt. Endpreis nach persönlicher Besichtigung.</p>
+
+          <a href="#termin" class="btn-primary" style="display:block;text-align:center">Jetzt Termin buchen</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Kontakt -->
-  <section class="section" id="kontakt">
+  <!-- GALERIE -->
+  <section id="galerie" class="section">
     <div class="section-header">
-      <h2>Anfrage stellen</h2>
-      <p>Wir melden uns innerhalb von 24 Stunden bei dir</p>
+      <div class="section-badge">Sortiment</div>
+      <h2>Unsere Felgen</h2>
+      <p>Von sportlich bis elegant — für jedes Fahrzeug und jeden Geschmack</p>
     </div>
-    <div class="contact">
-      <form>
-        <input type="text" placeholder="Dein Name" required>
-        <input type="email" placeholder="Deine E-Mail" required>
-        <input type="text" placeholder="Dein Fahrzeug (z.B. BMW 3er, 2022)">
-        <select>
-          <option value="">Was interessiert dich?</option>
-          <option>Sportfelgen</option>
-          <option>Design-Felgen</option>
-          <option>SUV & Offroad</option>
-          <option>Winterkompletträder</option>
-          <option>Beratung / Sonstiges</option>
-        </select>
-        <textarea placeholder="Deine Nachricht oder Wünsche..."></textarea>
-        <button type="submit">Anfrage absenden</button>
-      </form>
+
+    <div class="galerie-filter">
+      <button class="filter-btn active" data-filter="alle">Alle</button>
+      <button class="filter-btn" data-filter="sport">Sport</button>
+      <button class="filter-btn" data-filter="elegance">Elegance</button>
+      <button class="filter-btn" data-filter="suv">SUV & Offroad</button>
+    </div>
+
+    <div class="galerie-grid" id="galerie-grid">
+      <div class="galerie-card" data-category="sport">
+        <div class="galerie-img"><canvas class="felge-canvas" data-style="sport" data-color="gold" width="140" height="140"></canvas></div>
+        <div class="galerie-info">
+          <h3>RS Sport 5</h3>
+          <p>5-Speichen Sportfelge — leicht und aggressiv</p>
+          <div class="galerie-footer"><span class="price">ab 189 €</span><a href="#termin" class="btn-sm btn-gold">Anfragen</a></div>
+        </div>
+      </div>
+      <div class="galerie-card" data-category="elegance">
+        <div class="galerie-img"><canvas class="felge-canvas" data-style="elegance" data-color="silber" width="140" height="140"></canvas></div>
+        <div class="galerie-info">
+          <h3>Luxury Line 10</h3>
+          <p>10-Speichen Designfelge für Limousinen & SUVs</p>
+          <div class="galerie-footer"><span class="price">ab 249 €</span><a href="#termin" class="btn-sm btn-gold">Anfragen</a></div>
+        </div>
+      </div>
+      <div class="galerie-card" data-category="elegance">
+        <div class="galerie-img"><canvas class="felge-canvas" data-style="multi" data-color="schwarz" width="140" height="140"></canvas></div>
+        <div class="galerie-info">
+          <h3>Multi-Spoke Prestige</h3>
+          <p>Viele feine Speichen — zeitlos und hochwertig</p>
+          <div class="galerie-footer"><span class="price">ab 279 €</span><a href="#termin" class="btn-sm btn-gold">Anfragen</a></div>
+        </div>
+      </div>
+      <div class="galerie-card" data-category="suv">
+        <div class="galerie-img"><canvas class="felge-canvas" data-style="offroad" data-color="schwarz" width="140" height="140"></canvas></div>
+        <div class="galerie-info">
+          <h3>Offroad 6-Arm</h3>
+          <p>Robuste Optik für SUV und Geländefahrzeuge</p>
+          <div class="galerie-footer"><span class="price">ab 219 €</span><a href="#termin" class="btn-sm btn-gold">Anfragen</a></div>
+        </div>
+      </div>
+      <div class="galerie-card" data-category="sport">
+        <div class="galerie-img"><canvas class="felge-canvas" data-style="sport" data-color="schwarz" width="140" height="140"></canvas></div>
+        <div class="galerie-info">
+          <h3>Nightrider Sport</h3>
+          <p>Mattschwarze Sportfelge — dunkel und dominant</p>
+          <div class="galerie-footer"><span class="price">ab 209 €</span><a href="#termin" class="btn-sm btn-gold">Anfragen</a></div>
+        </div>
+      </div>
+      <div class="galerie-card" data-category="suv">
+        <div class="galerie-img"><canvas class="felge-canvas" data-style="offroad" data-color="gold" width="140" height="140"></canvas></div>
+        <div class="galerie-info">
+          <h3>Desert King</h3>
+          <p>Gold-bronzene Offroad Felge — auffallend und stark</p>
+          <div class="galerie-footer"><span class="price">ab 239 €</span><a href="#termin" class="btn-sm btn-gold">Anfragen</a></div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- BEWERTUNGEN -->
+  <section id="bewertungen" class="section section-cream">
+    <div class="section-header">
+      <div class="section-badge">Kundenstimmen</div>
+      <h2>Was unsere Kunden sagen</h2>
+      <p>Über 500 Bewertungen — echte Menschen, echte Ergebnisse</p>
+    </div>
+
+    <div class="testimonials-wrap">
+      <button class="testimonial-arrow left" id="prev-testimonial">&#8592;</button>
+      <div class="testimonials-viewport">
+        <div class="testimonials-track" id="testimonials-track">
+
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"Absolute Topberatung! Mein BMW sah nach dem Felgenwechsel aus wie ein komplett anderes Auto. Ich hätte nie gedacht, dass neue Felgen so einen Unterschied machen. Innerhalb von 2 Stunden war alles fertig."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">MK</div>
+              <div><strong>Michael K.</strong><span>BMW 5er F10</span></div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"Endlich mal ein Händler der zuhört. Ich kannte mich null aus, wurde ohne Fachwort-Salat beraten. Die Preise sind fair und das Team ist super freundlich. Die Einlagerung meiner Winterräder läuft jetzt auch über RimPro."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">SM</div>
+              <div><strong>Sandra M.</strong><span>Audi Q5</span></div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"Winterräder drauf, Sommerräder eingelagert — alles in 90 Minuten, alles perfekt. Der Online-Konfigurator hat mir schon zuhause geholfen mich zu entscheiden. Klare Empfehlung für Würzburg!"</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">TR</div>
+              <div><strong>Thomas R.</strong><span>Mercedes C-Klasse</span></div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="stars">★★★★☆</div>
+            <p>"Gutes Preis-Leistungs-Verhältnis. Beratung war ausführlich und ich bin mit genau dem Produkt nach Hause gefahren das zu mir passt. Beim nächsten Saisonwechsel komme ich wieder."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">LP</div>
+              <div><strong>Lisa P.</strong><span>VW Golf 8</span></div>
+            </div>
+          </div>
+
+          <div class="testimonial-card">
+            <div class="stars">★★★★★</div>
+            <p>"Mein Mustang verdient das Beste — und genau das habe ich hier bekommen. OZ Racing Felgen, perfekt montiert, Spureinstellung inklusive. Das Team weiß was es tut und liebt Autos genauso wie ich."</p>
+            <div class="testimonial-author">
+              <div class="author-avatar">MF</div>
+              <div><strong>Markus F.</strong><span>Ford Mustang GT</span></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <button class="testimonial-arrow right" id="next-testimonial">&#8594;</button>
+    </div>
+    <div class="testimonial-dots" id="testimonial-dots"></div>
+  </section>
+
+  <!-- TERMINBUCHUNG -->
+  <section id="termin" class="section">
+    <div class="section-header">
+      <div class="section-badge">Termin</div>
+      <h2>Termin vereinbaren</h2>
+      <p>Wir melden uns innerhalb von 24 Stunden zur Bestätigung. Für Saisonwechsel bitte 2 Wochen im Voraus buchen.</p>
+    </div>
+
+    <form class="termin-form" id="termin-form">
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label>Gewünschte Services *</label>
+          <div class="service-checkboxes">
+            <label class="check-label"><input type="checkbox" name="service" value="Felgen montieren"> Felgen montieren</label>
+            <label class="check-label"><input type="checkbox" name="service" value="Auswuchten"> Auswuchten</label>
+            <label class="check-label"><input type="checkbox" name="service" value="Reifenwechsel"> Reifenwechsel</label>
+            <label class="check-label"><input type="checkbox" name="service" value="Spureinstellung"> Spureinstellung</label>
+            <label class="check-label"><input type="checkbox" name="service" value="Einlagerung"> Einlagerung</label>
+            <label class="check-label"><input type="checkbox" name="service" value="Beratung"> Beratung / Sonstiges</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="fahrzeug">Dein Fahrzeug *</label>
+          <input type="text" id="fahrzeug" name="fahrzeug" placeholder="z.B. BMW 3er, 2021, 225/45 R18" required>
+        </div>
+
+        <div class="form-group">
+          <label for="wunschdatum">Wunschdatum *</label>
+          <input type="date" id="wunschdatum" name="datum" required>
+        </div>
+
+        <div class="form-group">
+          <label>Wunschzeit *</label>
+          <div class="time-slots">
+            <label class="time-slot"><input type="radio" name="uhrzeit" value="09:00"> 09:00</label>
+            <label class="time-slot"><input type="radio" name="uhrzeit" value="10:00"> 10:00</label>
+            <label class="time-slot"><input type="radio" name="uhrzeit" value="11:00"> 11:00</label>
+            <label class="time-slot"><input type="radio" name="uhrzeit" value="14:00"> 14:00</label>
+            <label class="time-slot"><input type="radio" name="uhrzeit" value="15:00"> 15:00</label>
+            <label class="time-slot"><input type="radio" name="uhrzeit" value="16:00"> 16:00</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name">Dein Name *</label>
+          <input type="text" id="name" name="name" placeholder="Vor- und Nachname" required>
+        </div>
+
+        <div class="form-group">
+          <label for="telefon">Telefonnummer *</label>
+          <input type="tel" id="telefon" name="telefon" placeholder="+49 931 ..." required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" name="email" placeholder="deine@email.de">
+        </div>
+
+        <div class="form-group">
+          <label for="nachricht">Sonstige Wünsche</label>
+          <textarea id="nachricht" name="nachricht" placeholder="Besondere Wünsche, Felgengröße, ..."></textarea>
+        </div>
+
+      </div>
+
+      <button type="submit" class="btn-primary btn-large">Termin anfragen &#8594;</button>
+      <div class="form-success" id="form-success">
+        ✅ <strong>Anfrage gesendet!</strong> Wir melden uns innerhalb von 24 Stunden bei dir.
+      </div>
+    </form>
+  </section>
+
+  <!-- STANDORT -->
+  <section id="standort" class="section section-dark">
+    <div class="standort-layout">
+      <div class="standort-info">
+        <div class="section-badge">Findest du uns</div>
+        <h2>RimPro Würzburg</h2>
+        <div class="kontakt-block">
+          <div class="kontakt-zeile">📍 Kaiserstraße 45, 97070 Würzburg</div>
+          <div class="kontakt-zeile">📞 <a href="tel:+499311234567">+49 931 123 45 67</a></div>
+          <div class="kontakt-zeile">✉️ <a href="mailto:info@rimpro-wuerzburg.de">info@rimpro-wuerzburg.de</a></div>
+        </div>
+        <div class="oeffnungszeiten">
+          <h3>Öffnungszeiten</h3>
+          <table>
+            <tr><td>Mo – Fr</td><td>08:00 – 18:00 Uhr</td></tr>
+            <tr><td>Samstag</td><td>09:00 – 14:00 Uhr</td></tr>
+            <tr><td>Sonntag</td><td>Geschlossen</td></tr>
+          </table>
+          <p class="saison-hinweis">⚠️ In der Reifenwechsel-Saison (März/April & Okt/Nov) verlängerte Öffnungszeiten — bitte vorab anrufen.</p>
+        </div>
+      </div>
+      <div class="standort-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2600.4!2d9.9284!3d49.7913!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47a28f0a5c3b3b3b%3A0x1234!2sKaiserstra%C3%9Fe%2C%2097070%20W%C3%BCrzburg!5e0!3m2!1sde!2sde!4v1234567890"
+          width="100%" height="380" style="border:0;border-radius:12px;" allowfullscreen loading="lazy">
+        </iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer>
-    <p>&copy; 2026 <strong>RimPro</strong> — Felgen & Kompletträder · Alle Rechte vorbehalten</p>
+    <div class="footer-grid">
+      <div>
+        <div class="logo" style="font-size:1.8rem;margin-bottom:12px;">Rim<span>Pro</span></div>
+        <p>Würzburgs Spezialist für Premium-Felgen, Kompletträder und Reifenservice seit 2013.</p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#konfigurator">Konfigurator</a></li>
+          <li><a href="#preisrechner">Preisrechner</a></li>
+          <li><a href="#galerie">Felgen & Räder</a></li>
+          <li><a href="#termin">Termin buchen</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <p>Kaiserstraße 45<br>97070 Würzburg</p>
+        <p><a href="tel:+499311234567">+49 931 123 45 67</a></p>
+        <p>Mo–Fr 08–18 Uhr<br>Sa 09–14 Uhr</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 RimPro Würzburg · <a href="#">Impressum</a> · <a href="#">Datenschutz</a></p>
+    </div>
   </footer>
 
+  <!-- WHATSAPP BUTTON -->
+  <a class="whatsapp-btn" href="https://wa.me/499311234567?text=Hallo%20RimPro!%20Ich%20interessiere%20mich%20für%20Felgen." target="_blank" aria-label="WhatsApp">
+    <svg viewBox="0 0 32 32" fill="currentColor" width="28" height="28">
+      <path d="M16 0C7.163 0 0 7.163 0 16c0 2.822.737 5.476 2.027 7.782L0 32l8.418-2.004A15.93 15.93 0 0016 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.27 13.27 0 01-6.77-1.848l-.486-.289-5.001 1.191 1.217-4.867-.316-.5A13.27 13.27 0 012.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.3-9.967c-.4-.2-2.367-1.167-2.733-1.3-.367-.133-.633-.2-.9.2-.267.4-1.033 1.3-1.267 1.567-.233.267-.467.3-.867.1-.4-.2-1.683-.621-3.204-1.977-1.184-1.056-1.983-2.36-2.217-2.76-.233-.4-.025-.617.175-.817.18-.18.4-.467.6-.7.2-.233.267-.4.4-.667.133-.267.067-.5-.033-.7-.1-.2-.9-2.167-1.233-2.967-.325-.78-.655-.674-.9-.686l-.767-.013c-.267 0-.7.1-1.067.5-.367.4-1.4 1.367-1.4 3.333s1.433 3.867 1.633 4.133c.2.267 2.817 4.3 6.824 6.033.954.412 1.697.658 2.277.842.957.305 1.828.262 2.517.159.767-.115 2.367-.968 2.7-1.902.333-.933.333-1.733.233-1.902-.1-.167-.367-.267-.767-.467z"/>
+    </svg>
+  </a>
+
+  <script src="main.js"></script>
 </body>
 </html>
