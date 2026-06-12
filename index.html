@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RimPro – Felgen & Räder</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    /* NAVIGATION */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(10, 10, 10, 0.95);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 60px;
+      z-index: 100;
+    }
+    .logo {
+      color: #e63c2f;
+      font-size: 1.6rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    .logo span { color: #fff; }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 32px;
+    }
+    nav ul a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+    nav ul a:hover { color: #e63c2f; }
+    .nav-cta {
+      background: #e63c2f;
+      color: #fff !important;
+      padding: 10px 22px;
+      border-radius: 6px;
+      font-weight: 600;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0a0a0a 0%, #1c1c1c 50%, #2a0a07 100%);
+      display: flex;
+      align-items: center;
+      padding: 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      right: -100px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(230,60,47,0.15) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+    .hero-content { max-width: 620px; z-index: 1; }
+    .hero-badge {
+      display: inline-block;
+      background: rgba(230,60,47,0.2);
+      color: #e63c2f;
+      border: 1px solid #e63c2f;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 24px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      font-size: 3.8rem;
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+    .hero h1 span { color: #e63c2f; }
+    .hero p {
+      color: #aaa;
+      font-size: 1.15rem;
+      line-height: 1.7;
+      margin-bottom: 40px;
+    }
+    .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      background: #e63c2f;
+      color: #fff;
+      padding: 16px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1rem;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .btn-primary:hover { background: #c0392b; transform: translateY(-1px); }
+    .btn-secondary {
+      border: 2px solid #444;
+      color: #ccc;
+      padding: 16px 36px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-secondary:hover { border-color: #e63c2f; color: #fff; }
+
+    /* STATS */
+    .stats {
+      background: #f7f7f7;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+    }
+    .stat {
+      flex: 1;
+      text-align: center;
+      padding: 48px 20px;
+      border-right: 1px solid #e0e0e0;
+    }
+    .stat:last-child { border-right: none; }
+    .stat-number {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: #e63c2f;
+    }
+    .stat-label {
+      color: #666;
+      font-size: 0.95rem;
+      margin-top: 6px;
+    }
+
+    /* PRODUKTE */
+    .section { padding: 90px 60px; }
+    .section-header { text-align: center; margin-bottom: 60px; }
+    .section-header h2 {
+      font-size: 2.4rem;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+    .section-header p { color: #666; font-size: 1.05rem; }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 28px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .product-card {
+      background: #fff;
+      border: 1px solid #eee;
+      border-radius: 14px;
+      overflow: hidden;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .product-card:hover {
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+      transform: translateY(-4px);
+    }
+    .product-img {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 5rem;
+      background: linear-gradient(135deg, #f0f0f0, #e0e0e0);
+    }
+    .product-info { padding: 24px; }
+    .product-info h3 { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+    .product-info p { color: #666; font-size: 0.9rem; line-height: 1.6; margin-bottom: 16px; }
+    .product-price {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #e63c2f;
+    }
+    .product-price span { font-size: 0.85rem; color: #999; font-weight: 400; }
+
+    /* MARKEN */
+    .brands { background: #0a0a0a; padding: 60px; text-align: center; }
+    .brands h2 { color: #fff; font-size: 1.3rem; margin-bottom: 40px; letter-spacing: 2px; text-transform: uppercase; }
+    .brands-list {
+      display: flex;
+      justify-content: center;
+      gap: 50px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      color: #555;
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .brand:hover { color: #e63c2f; }
+
+    /* WARUM WIR */
+    .why { background: #f7f7f7; }
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .why-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 36px 28px;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    }
+    .why-icon { font-size: 2.8rem; margin-bottom: 18px; }
+    .why-card h3 { font-size: 1.15rem; font-weight: 700; margin-bottom: 10px; }
+    .why-card p { color: #666; font-size: 0.95rem; line-height: 1.6; }
+
+    /* KONTAKT */
+    .contact { max-width: 600px; margin: 0 auto; }
+    .contact form { display: flex; flex-direction: column; gap: 16px; }
+    .contact input,
+    .contact textarea,
+    .contact select {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      transition: border-color 0.2s;
+      outline: none;
+    }
+    .contact input:focus,
+    .contact textarea:focus,
+    .contact select:focus { border-color: #e63c2f; }
+    .contact textarea { min-height: 140px; resize: vertical; }
+    .contact button {
+      background: #e63c2f;
+      color: #fff;
+      border: none;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .contact button:hover { background: #c0392b; }
+
+    /* FOOTER */
+    footer {
+      background: #0a0a0a;
+      color: #666;
+      text-align: center;
+      padding: 40px 60px;
+      font-size: 0.9rem;
+    }
+    footer strong { color: #e63c2f; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      nav ul { display: none; }
+      .hero { padding: 120px 24px 60px; }
+      .hero h1 { font-size: 2.4rem; }
+      .section { padding: 60px 24px; }
+      .stats { flex-direction: column; }
+      .stat { border-right: none; border-bottom: 1px solid #e0e0e0; }
+      .brands { padding: 60px 24px; }
+      .brands-list { gap: 28px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">Rim<span>Pro</span></div>
+    <ul>
+      <li><a href="#produkte">Felgen</a></li>
+      <li><a href="#marken">Marken</a></li>
+      <li><a href="#warum">Über uns</a></li>
+      <li><a href="#kontakt" class="nav-cta">Anfrage stellen</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Felgen & Kompletträder</div>
+      <h1>Dein Auto.<br>Deine <span>Felgen.</span><br>Dein Style.</h1>
+      <p>Über 5.000 Felgen auf Lager — von sportlich bis elegant. Wir finden die perfekte Felge für dein Fahrzeug. Montage, Einlagerung und Lieferung inklusive.</p>
+      <div class="hero-buttons">
+        <a href="#produkte" class="btn-primary">Felgen entdecken</a>
+        <a href="#kontakt" class="btn-secondary">Beratung anfragen</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-number">5.000+</div>
+      <div class="stat-label">Felgen auf Lager</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">12</div>
+      <div class="stat-label">Jahre Erfahrung</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">98%</div>
+      <div class="stat-label">Zufriedene Kunden</div>
+    </div>
+    <div class="stat">
+      <div class="stat-number">24h</div>
+      <div class="stat-label">Lieferzeit</div>
+    </div>
+  </div>
+
+  <!-- Produkte -->
+  <section class="section" id="produkte">
+    <div class="section-header">
+      <h2>Unsere Felgen-Kategorien</h2>
+      <p>Für jeden Geschmack und jedes Fahrzeug das Richtige</p>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img">⚙️</div>
+        <div class="product-info">
+          <h3>Sportfelgen</h3>
+          <p>Leichte Alufelgen für maximale Performance und sportliches Aussehen.</p>
+          <div class="product-price">ab 189 € <span>/ Stück</span></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">✨</div>
+        <div class="product-info">
+          <h3>Design-Felgen</h3>
+          <p>Elegante Felgen für Limousinen und SUVs — hochglanz oder matt.</p>
+          <div class="product-price">ab 249 € <span>/ Stück</span></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">🚙</div>
+        <div class="product-info">
+          <h3>SUV & Offroad</h3>
+          <p>Robuste Felgen für Geländefahrzeuge — stabil und stylisch.</p>
+          <div class="product-price">ab 219 € <span>/ Stück</span></div>
+        </div>
+      </div>
+      <div class="product-card">
+        <div class="product-img">❄️</div>
+        <div class="product-info">
+          <h3>Winterkompletträder</h3>
+          <p>Fertig montierte Winterräder — direkt aufziehen und losfahren.</p>
+          <div class="product-price">ab 599 € <span>/ Satz</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Marken -->
+  <section class="brands" id="marken">
+    <h2>Unsere Marken</h2>
+    <div class="brands-list">
+      <div class="brand">BBS</div>
+      <div class="brand">OZ Racing</div>
+      <div class="brand">Borbet</div>
+      <div class="brand">AEZ</div>
+      <div class="brand">Brock</div>
+      <div class="brand">Alutec</div>
+    </div>
+  </section>
+
+  <!-- Warum wir -->
+  <section class="section why" id="warum">
+    <div class="section-header">
+      <h2>Warum RimPro?</h2>
+      <p>Wir sind mehr als nur ein Felgenhändler</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">🚚</div>
+        <h3>Kostenlose Lieferung</h3>
+        <p>Ab einem Bestellwert von 300 € liefern wir versandkostenfrei direkt zu dir nach Hause.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🔧</div>
+        <h3>Montage vor Ort</h3>
+        <p>Wir montieren deine neuen Felgen direkt in unserem Betrieb — schnell und professionell.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📦</div>
+        <h3>Einlagerung</h3>
+        <p>Deine Saisonräder lagern wir sicher und trocken ein — kein Keller voll Reifen mehr.</p>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💬</div>
+        <h3>Persönliche Beratung</h3>
+        <p>Unsere Experten helfen dir, die richtige Felge für dein Fahrzeug und deinen Stil zu finden.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Kontakt -->
+  <section class="section" id="kontakt">
+    <div class="section-header">
+      <h2>Anfrage stellen</h2>
+      <p>Wir melden uns innerhalb von 24 Stunden bei dir</p>
+    </div>
+    <div class="contact">
+      <form>
+        <input type="text" placeholder="Dein Name" required>
+        <input type="email" placeholder="Deine E-Mail" required>
+        <input type="text" placeholder="Dein Fahrzeug (z.B. BMW 3er, 2022)">
+        <select>
+          <option value="">Was interessiert dich?</option>
+          <option>Sportfelgen</option>
+          <option>Design-Felgen</option>
+          <option>SUV & Offroad</option>
+          <option>Winterkompletträder</option>
+          <option>Beratung / Sonstiges</option>
+        </select>
+        <textarea placeholder="Deine Nachricht oder Wünsche..."></textarea>
+        <button type="submit">Anfrage absenden</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 <strong>RimPro</strong> — Felgen & Kompletträder · Alle Rechte vorbehalten</p>
+  </footer>
+
+</body>
+</html>
